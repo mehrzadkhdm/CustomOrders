@@ -33,6 +33,7 @@ namespace CustomOrders
         public string iconName = "";
         public string fontFamily;
         public string text = "";
+        public string searchFolder = "";
         public List<Config> Configs;
         //public List<OrderDetail> orders = new List<OrderDetail>();
         public string outputFolder = Application.StartupPath + "\\output";
@@ -148,10 +149,16 @@ namespace CustomOrders
 
         private void configFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Form form = new folderSelector(this);
+            DialogResult result = form.ShowDialog(this);
+            if (result == DialogResult.Cancel)
+                return;
+
             string filePath = string.Empty;
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.InitialDirectory = Application.StartupPath;
+                
+                openFileDialog.InitialDirectory =  searchFolder == "" ?  Application.StartupPath : searchFolder;
                 openFileDialog.Filter = "CSV files (*.csv)|*.json|All files (*.*)|*.*";
                 openFileDialog.FilterIndex = 2;
                 openFileDialog.RestoreDirectory = true;
@@ -313,7 +320,7 @@ namespace CustomOrders
                         wrapMode.SetWrapMode(WrapMode.TileFlipXY);
                         graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
                     }
-                    destImage.Save(String.Format("{0}\\{1}_{2}.png", outputFolder, order.orderId, item.orderItemId));
+                    destImage.Save(String.Format("{0}\\{1}_{2}_{3}.png", outputFolder, order.orderNumber, item.orderItemId, item.sku));
 
                     //destImage.Save(Application.StartupPath + @"\Output\" + order.OrderId + "-" + item.OrderItemId + ".png");
                 }
@@ -328,8 +335,13 @@ namespace CustomOrders
                 foreach (string mixedUrl in jsonURLs)
                 {
                     int i = mixedUrl.IndexOf("https");
-                    string jsonFile = mixedUrl.Substring(0, i - 1);
-                    string url = mixedUrl.Substring(i, mixedUrl.Length - i);
+                    string[] vs = mixedUrl.Split(':');
+                    string orderItemId = vs[0];
+                    string jsonFile = vs[0];
+                    destImage = new Bitmap(config.Width, config.Height);
+                    //string jsonFile = mixedUrl.Substring(0, i - 1);
+                    //string url = mixedUrl.Substring(i, mixedUrl.Length - i);
+                    string url = vs[1] + ":" + vs[2];
                     foreach (string file in Directory.GetFiles(Application.StartupPath + @"\tmp"))
                     {
                         File.Delete(file);
@@ -408,6 +420,7 @@ namespace CustomOrders
                         SizeF stringSize = new SizeF();
                         var tempImage = new Bitmap(1, 1);
                         float scaleX, scaleY, scale;
+                        
                         using (var g = Graphics.FromImage(destImage))
                         {
 
@@ -438,9 +451,8 @@ namespace CustomOrders
 
                                 graphics.DrawString(text, myFont, Brushes.Black,
                                     new Rectangle(0, 0, destImage.Width, destImage.Height), stringFormat);
-                                destImage.Save(String.Format("{0}\\Output\\{1}_{2}.png", Application.StartupPath, order.orderId, item.orderItemId));
-
-                                //destImage.Save(Application.StartupPath + @"\Output\" + order.OrderId+ "-" + item.OrderItemId + ".png");
+                                destImage.Save(String.Format("{0}\\{1}_{2}_{3}.png", outputFolder, order.orderNumber, orderItemId, item.sku));
+                                                                //destImage.Save(Application.StartupPath + @"\Output\" + order.OrderId+ "-" + item.OrderItemId + ".png");
                             }
                         else
                         {
@@ -470,7 +482,8 @@ namespace CustomOrders
                                 stringFormat.LineAlignment = StringAlignment.Near;
                                 graphics.DrawString(text, myFont, Brushes.Black,
                                     new Rectangle(0, (int)config.C2_StartY, destImage.Width, destImage.Height), stringFormat);
-                                destImage.Save(String.Format("{0}\\Output\\{1}_{2}.png", Application.StartupPath, order.orderId, item.orderItemId));
+                                destImage.Save(String.Format("{0}\\{1}_{2}_{3}.png", outputFolder, order.orderNumber, orderItemId, item.sku));
+
                                 //destImage.Save(Application.StartupPath + @"\Output\" + order.OrderId + "-" + item.OrderItemId + ".png");
                             }
 
@@ -804,32 +817,6 @@ namespace CustomOrders
             }
         }
 
-        private void buttonCheck_Click(object sender, EventArgs e)
-        {
-            if ((string)buttonCheck.Tag == "1")
-            {
-                buttonCheck.Text = "Uncheck selected rows";
-                buttonCheck.Tag = "0";
-                foreach (DataGridViewRow row in dataGridView1.Rows)
-                {
-                    if (row.Selected)
-                        row.Cells[1].Value = true;
-                }
-            }
-            else
-            {
-                buttonCheck.Text = "Check selected rows";
-                buttonCheck.Tag = "1";
-                foreach (DataGridViewRow row in dataGridView1.Rows)
-                {
-                    if (row.Selected)
-                        row.Cells[1].Value = false;
-                }
-
-            }
-
-        }
-
         private void dataGridView1_KeyPress(object sender, KeyPressEventArgs e)
         {
 
@@ -865,13 +852,6 @@ namespace CustomOrders
             }
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            foreach (DataGridViewRow row in dataGridView1.Rows)
-            {
-                row.Cells[1].Value = checkBox1.Checked;
-            }
-        }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -885,15 +865,28 @@ namespace CustomOrders
 
         private void outputFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            Form form = new folderSelector(this);
+            DialogResult result = form.ShowDialog(this);
+            if (result == DialogResult.Cancel)
+                return;
+
             using (FolderBrowserDialog folderDialog = new FolderBrowserDialog())
             {
-                folderDialog.SelectedPath = outputFolder;
+                //folderDialog.SelectedPath = outputFolder;
+                folderDialog.SelectedPath = searchFolder;
 
                 if (folderDialog.ShowDialog() == DialogResult.OK)
                 {
                     outputFolder = folderDialog.SelectedPath;
                 }
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                row.Cells[1].Value = checkBox1.Checked ;
             }
         }
     }

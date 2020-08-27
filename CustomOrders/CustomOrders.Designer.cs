@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,12 +39,6 @@
             this.configFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.outputFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.buttonProcess = new System.Windows.Forms.Button();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.buttonCheck = new System.Windows.Forms.Button();
-            this.buttonClear = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.NoColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnChecBox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.ColumnAmazon = new System.Windows.Forms.DataGridViewLinkColumn();
@@ -52,6 +46,9 @@
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnProgress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.orderIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonProcess = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -139,70 +136,13 @@
             this.orderIDColumn});
             this.dataGridView1.Location = new System.Drawing.Point(12, 74);
             this.dataGridView1.Name = "dataGridView1";
-            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(1002, 472);
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridView1_KeyPress);
-            // 
-            // buttonProcess
-            // 
-            this.buttonProcess.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonProcess.Location = new System.Drawing.Point(871, 45);
-            this.buttonProcess.Name = "buttonProcess";
-            this.buttonProcess.Size = new System.Drawing.Size(143, 23);
-            this.buttonProcess.TabIndex = 3;
-            this.buttonProcess.Text = "Process selected orders";
-            this.buttonProcess.UseVisualStyleBackColor = true;
-            this.buttonProcess.Click += new System.EventHandler(this.buttonProcess_Click);
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // buttonCheck
-            // 
-            this.buttonCheck.Location = new System.Drawing.Point(13, 44);
-            this.buttonCheck.Name = "buttonCheck";
-            this.buttonCheck.Size = new System.Drawing.Size(145, 23);
-            this.buttonCheck.TabIndex = 5;
-            this.buttonCheck.Tag = "1";
-            this.buttonCheck.Text = "Check selected rows";
-            this.buttonCheck.UseVisualStyleBackColor = true;
-            this.buttonCheck.Click += new System.EventHandler(this.buttonCheck_Click);
-            // 
-            // buttonClear
-            // 
-            this.buttonClear.Location = new System.Drawing.Point(422, 44);
-            this.buttonClear.Name = "buttonClear";
-            this.buttonClear.Size = new System.Drawing.Size(122, 23);
-            this.buttonClear.TabIndex = 6;
-            this.buttonClear.Text = "Clear selection";
-            this.buttonClear.UseVisualStyleBackColor = true;
-            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(245, 52);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(106, 17);
-            this.checkBox1.TabIndex = 7;
-            this.checkBox1.Text = "Check/Uncheck";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(193, 53);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 13);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "All rows ";
             // 
             // NoColumn
             // 
@@ -258,15 +198,41 @@
             this.orderIDColumn.ReadOnly = true;
             this.orderIDColumn.Visible = false;
             // 
+            // buttonProcess
+            // 
+            this.buttonProcess.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonProcess.Location = new System.Drawing.Point(871, 45);
+            this.buttonProcess.Name = "buttonProcess";
+            this.buttonProcess.Size = new System.Drawing.Size(143, 23);
+            this.buttonProcess.TabIndex = 3;
+            this.buttonProcess.Text = "Process selected orders";
+            this.buttonProcess.UseVisualStyleBackColor = true;
+            this.buttonProcess.Click += new System.EventHandler(this.buttonProcess_Click);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(12, 49);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(131, 17);
+            this.checkBox1.TabIndex = 7;
+            this.checkBox1.Text = "Select All/Unselect All";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // CustomOrders
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1030, 558);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.buttonClear);
-            this.Controls.Add(this.buttonCheck);
             this.Controls.Add(this.buttonProcess);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
@@ -295,10 +261,7 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button buttonProcess;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.Button buttonCheck;
-        private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem outputFolderToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn NoColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnChecBox;

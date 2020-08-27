@@ -114,6 +114,11 @@ namespace CustomOrders
                 textBoxOrderNumber.Enabled = false;
             }
         }
+
+        private void getOrders_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }

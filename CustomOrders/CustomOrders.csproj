@@ -65,6 +65,12 @@
     <Compile Include="CustomOrders.Designer.cs">
       <DependentUpon>CustomOrders.cs</DependentUpon>
     </Compile>
+    <Compile Include="folderSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="folderSelector.Designer.cs">
+      <DependentUpon>folderSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="getOrders.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +82,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CustomOrders.resx">
       <DependentUpon>CustomOrders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="folderSelector.resx">
+      <DependentUpon>folderSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="getOrders.resx">
       <DependentUpon>getOrders.cs</DependentUpon>

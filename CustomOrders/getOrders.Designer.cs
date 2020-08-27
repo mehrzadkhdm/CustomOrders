@@ -125,6 +125,7 @@
             // 
             // textBoxOrderNumber
             // 
+            this.textBoxOrderNumber.Enabled = false;
             this.textBoxOrderNumber.Location = new System.Drawing.Point(103, 104);
             this.textBoxOrderNumber.Name = "textBoxOrderNumber";
             this.textBoxOrderNumber.Size = new System.Drawing.Size(267, 20);
@@ -135,12 +136,10 @@
             // radioButtonOrderNumber
             // 
             this.radioButtonOrderNumber.AutoSize = true;
-            this.radioButtonOrderNumber.Checked = true;
             this.radioButtonOrderNumber.Location = new System.Drawing.Point(7, 104);
             this.radioButtonOrderNumber.Name = "radioButtonOrderNumber";
             this.radioButtonOrderNumber.Size = new System.Drawing.Size(89, 17);
             this.radioButtonOrderNumber.TabIndex = 2;
-            this.radioButtonOrderNumber.TabStop = true;
             this.radioButtonOrderNumber.Text = "Order number";
             this.radioButtonOrderNumber.UseVisualStyleBackColor = true;
             this.radioButtonOrderNumber.CheckedChanged += new System.EventHandler(this.radioButtonOrderNumber_CheckedChanged);
@@ -159,10 +158,12 @@
             // radioButtonUnshipped
             // 
             this.radioButtonUnshipped.AutoSize = true;
+            this.radioButtonUnshipped.Checked = true;
             this.radioButtonUnshipped.Location = new System.Drawing.Point(7, 31);
             this.radioButtonUnshipped.Name = "radioButtonUnshipped";
             this.radioButtonUnshipped.Size = new System.Drawing.Size(108, 17);
             this.radioButtonUnshipped.TabIndex = 0;
+            this.radioButtonUnshipped.TabStop = true;
             this.radioButtonUnshipped.Text = "Unshipped orders";
             this.radioButtonUnshipped.UseVisualStyleBackColor = true;
             this.radioButtonUnshipped.CheckedChanged += new System.EventHandler(this.radioButtonUnshipped_CheckedChanged);
@@ -177,6 +178,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "getOrders";
             this.Text = "Get Orders";
+            this.Load += new System.EventHandler(this.getOrders_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
