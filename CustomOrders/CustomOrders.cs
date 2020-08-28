@@ -148,8 +148,16 @@ namespace CustomOrders
         }
 
         private void configFileToolStripMenuItem_Click(object sender, EventArgs e)
+
         {
-            Form form = new folderSelector(this);
+
+            string folder = Properties.Settings.Default.configFolder;
+            if (folder == string.Empty)
+            {
+                folder = Application.StartupPath + @"\Config";
+            }
+            Form form = new folderSelector(this, folder);
+
             DialogResult result = form.ShowDialog(this);
             if (result == DialogResult.Cancel)
                 return;
@@ -157,8 +165,8 @@ namespace CustomOrders
             string filePath = string.Empty;
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                
-                openFileDialog.InitialDirectory =  searchFolder == "" ?  Application.StartupPath : searchFolder;
+
+                openFileDialog.InitialDirectory = searchFolder == "" ? Application.StartupPath : searchFolder;
                 openFileDialog.Filter = "CSV files (*.csv)|*.json|All files (*.*)|*.*";
                 openFileDialog.FilterIndex = 2;
                 openFileDialog.RestoreDirectory = true;
@@ -167,6 +175,13 @@ namespace CustomOrders
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     filePath = openFileDialog.FileName;
+                    int i = filePath.LastIndexOf('\\');
+                    string configFolder = filePath.Substring(0, i);
+
+                    Properties.Settings.Default.configFolder = configFolder;
+                    Properties.Settings.Default.Save();
+
+
                     Configs = new List<Config>();
 
 
@@ -420,7 +435,7 @@ namespace CustomOrders
                         SizeF stringSize = new SizeF();
                         var tempImage = new Bitmap(1, 1);
                         float scaleX, scaleY, scale;
-                        
+
                         using (var g = Graphics.FromImage(destImage))
                         {
 
@@ -452,7 +467,7 @@ namespace CustomOrders
                                 graphics.DrawString(text, myFont, Brushes.Black,
                                     new Rectangle(0, 0, destImage.Width, destImage.Height), stringFormat);
                                 destImage.Save(String.Format("{0}\\{1}_{2}_{3}.png", outputFolder, order.orderNumber, orderItemId, item.sku));
-                                                                //destImage.Save(Application.StartupPath + @"\Output\" + order.OrderId+ "-" + item.OrderItemId + ".png");
+                                //destImage.Save(Application.StartupPath + @"\Output\" + order.OrderId+ "-" + item.OrderItemId + ".png");
                             }
                         else
                         {
@@ -764,7 +779,7 @@ namespace CustomOrders
                 //DataGridViewRow row = (DataGridViewRow)dataGridView1.Rows[0].Clone();
                 foreach (Item item in order.items)
                 {
-                    dataGridView1.Rows.Add(r++, true, order.orderNumber, item.sku, order.orderStatus, "", order.orderId );
+                    dataGridView1.Rows.Add(r++, true, order.orderNumber, item.sku, order.orderStatus, "", order.orderId);
                     dataGridView1.Rows[r - 2].Cells[1].ReadOnly = false;
                 }
 
@@ -805,6 +820,7 @@ namespace CustomOrders
 
                 }
             }
+            if (orderDetail == null) return;
             foreach (Order order in orderDetail.orders)
             {
                 //dataGridView1.Columns[2].
@@ -865,7 +881,12 @@ namespace CustomOrders
 
         private void outputFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form form = new folderSelector(this);
+            string folder = Properties.Settings.Default.outputFolder;
+            if (folder == string.Empty)
+            {
+                folder = Application.StartupPath + @"\Output";
+            }
+            Form form = new folderSelector(this, folder);
             DialogResult result = form.ShowDialog(this);
             if (result == DialogResult.Cancel)
                 return;
@@ -878,6 +899,10 @@ namespace CustomOrders
                 if (folderDialog.ShowDialog() == DialogResult.OK)
                 {
                     outputFolder = folderDialog.SelectedPath;
+                    Properties.Settings.Default.outputFolder = outputFolder;
+                    Properties.Settings.Default.Save();
+
+
                 }
             }
         }
@@ -886,7 +911,7 @@ namespace CustomOrders
         {
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
-                row.Cells[1].Value = checkBox1.Checked ;
+                row.Cells[1].Value = checkBox1.Checked;
             }
         }
     }

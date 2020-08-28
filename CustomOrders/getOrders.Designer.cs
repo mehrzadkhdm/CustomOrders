@@ -177,6 +177,7 @@
             this.ClientSize = new System.Drawing.Size(624, 172);
             this.Controls.Add(this.groupBox1);
             this.Name = "getOrders";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Get Orders";
             this.Load += new System.EventHandler(this.getOrders_Load);
             this.groupBox1.ResumeLayout(false);
